@@ -1,5 +1,12 @@
 var term;
-var socket = io(location.origin, {path: '/wetty/socket.io'})
+var vars = {};
+var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,
+    function(m,key,value) {
+        vars[key] = value;
+    });
+var challenge = vars['challenge'];
+var uid = vars['user_id'];
+var socket = io(location.origin, {path: '/wetty/socket.io', query: 'param=' + challenge + '&user_id=' + uid})
 var buf = '';
 
 function Wetty(argv) {
